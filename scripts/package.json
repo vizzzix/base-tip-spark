@@ -1,0 +1,16 @@
+{
+  "name": "register-creators",
+  "version": "1.0.0",
+  "description": "Script to register all creators in BaseTip contract",
+  "type": "module",
+  "main": "register-creators.js",
+  "scripts": {
+    "register": "node register-creators.js"
+  },
+  "dependencies": {
+    "viem": "^2.21.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
