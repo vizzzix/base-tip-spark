@@ -22,6 +22,25 @@ if (typeof window !== 'undefined') {
   creatorsStore.forceInitialize();
 }
 
+// Handle runtime errors from browser extensions
+if (typeof window !== 'undefined') {
+  window.addEventListener('error', (event) => {
+    // Ignore errors from browser extensions
+    if (event.message && event.message.includes('Could not establish connection')) {
+      event.preventDefault();
+      return false;
+    }
+  });
+
+  // Handle unhandled promise rejections from extensions
+  window.addEventListener('unhandledrejection', (event) => {
+    if (event.reason && event.reason.message && event.reason.message.includes('Could not establish connection')) {
+      event.preventDefault();
+      return false;
+    }
+  });
+}
+
 // Guard components before rendering
 assertElement("App", App);
 assertElement("wagmiConfig", wagmiConfig);
