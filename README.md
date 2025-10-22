@@ -18,11 +18,10 @@ https://vizzzix.github.io/base-tip-spark/
 BaseTip Spark is fully deployed and live on the Base Sepolia Testnet.
 All smart contract functions — registration, tipping, and data reads — are verified and working on-chain.
 
-Smart Contract 0x602306cE966CB42FA39f6463cb401e8aF1080eBD
+Smart Contract: 0x602306cE966CB42FA39f6463cb401e8aF1080eBD
 Network: Base Sepolia (Chain ID: 84532)
 🔗https://base-sepolia.blockscout.com/address/0x602306cE966CB42FA39f6463cb401e8aF1080eBD
-
-Example Transaction
+Example Transaction:
 CreatorRegistered event successfully emitted for Alice Chen
 🔗https://base-sepolia.blockscout.com/tx/0x3cbde9d52608b482d35da3869fd9fb75e2e6400c545ed10ca116448acb059c7b
 
