@@ -4,11 +4,11 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: '/base-tip-spark/',
+  base: mode === 'production' ? '/base-tip-spark/' : '/',
   server: {
     host: "::",
     port: 8080,
-    open: '/base-tip-spark/',
+    open: mode === 'production' ? '/base-tip-spark/' : '/',
   },
   plugins: [react()],
   resolve: {
