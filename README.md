@@ -1,180 +1,122 @@
 # BaseTip Spark
 
-A decentralized tipping platform built on Base Sepolia for creators to receive on-chain support from their community.
+**Support your favorite creators on‐chain** — a decentralized tipping platform built on USDC on the Base Sepolia network.  
+Fans can send tips to creators, and supporters earn collectible "Supporter Badges" as they show their loyalty.
 
-## 🚀 Features
+## 🎯 Why BaseTip Spark
 
-- **On-chain Tipping**: Send USDC tips directly to creators on Base Sepolia
-- **Creator Pages**: Easy-to-setup profile pages with customizable tip amounts
-- **Real-time Stats**: Track total tips, supporters, and earnings
-- **Network Switching**: Automatic Base Sepolia network detection and switching
-- **Responsive Design**: Mobile-first design with Base/Coinbase aesthetics
-- **Local Storage**: Client-side creator data storage with on-chain integration
+- Enables **instant on‐chain tipping** with real blockchain transparency.  
+- Built on Base Sepolia: low fees, fast confirmations.  
+- Supporters receive badges for showing their loyalty (Supporter → Diamond).  
+- Open Source, deployable on GitHub Pages, ready for hackathon and airdrop eligibility.
+- **Referral system**: Earn 5% of donations from users you refer!
 
-## 📋 Contract Addresses
+## 🚀 Live Demo  
+https://vizzzix.github.io/base-tip-spark/
 
-- **BaseTip Contract**: `0x602306cE966CB42FA39f6463cb401e8aF1080eBD`
-- **USDC Token**: `0x036cbd0b68e1b46e9bf8b3a810feb5c0138f2f7e`
-- **Network**: Base Sepolia (Chain ID: 84532)
-- **Explorer**: [Base Sepolia Blockscout](https://base-sepolia.blockscout.com/)
+## 🧩 Architecture Overview
+
+### Smart Contract  
+- Address: `0x602306cE966CB42FA39f6463cb401e8aF1080eBD` on Base Sepolia.  
+- Main features:  
+  - `registerCreator(name, bio, avatar)` — creators register themselves.  
+  - `sendTip(creator, amount, message)` — fans tip USDC, platform fee applied.  
+  - ERC-1155 badge minting based on supporter total contributions.  
+  - Platform fee: 2.5% (configurable by owner).  
+  - Only one registration per creator address (`require(!registeredCreators[msg.sender])`).
+
+### Frontend  
+- Built with **Vite + React + TypeScript**, UI styled with **Tailwind CSS** + Framer Motion.  
+- Uses `wagmi` + `viem` for blockchain interactions.  
+- Real-time loading of creators via contract events `CreatorRegistered`.  
+- Slug mapping: `/creator/[slug]` routes automatically resolve to creator address.  
+- Data caching via IndexedDB for offline and performance support.  
+- Deployment: GitHub Pages (`gh-pages`), with SPA routing (`404.html` fallback).
+
+## 🔧 Features
+
+- **Creator registration and display** (avatar, bio, total tips, categories).  
+- **Tipping flow**: Wallet connect (Coinbase Wallet / WalletConnect) + Demo payment system.  
+- **Supporter badges** based on tiers:  
+  - Supporter: $0+  
+  - Fan: $500+  
+  - VIP: $2,000+  
+  - Champion: $5,000+  
+  - Legend: $10,000+  
+  - Diamond: $25,000+  
+- **Referral system**: Generate referral links and earn 5% of referred users' donations.  
+- **Demo mode**: Test the platform without real transactions.  
+- **Transparent fee display**: "Platform fee: 2.5% (included) • Creator receives … USDC".  
+- **Network check**: ensures user on Base Sepolia; prompts switch if not.  
+- **Real-time updates** with live indicators.  
+- **IndexedDB cache** + fallback offline mode.
+
+## 🧪 Getting Started (Development)
+
+```bash
+git clone https://github.com/vizzzix/base-tip-spark.git
+cd base-tip-spark
+npm install
+npm run dev          # local dev server (http://localhost:8080)
+npm run build        # build for production (dist)
+npm run deploy       # deploy to GitHub Pages
+```
+
+## 🧮 Smart Contract Info
+
+**Chain**: Base Sepolia (Chain ID: 84532)  
+**USDC Token**: `0x036CbD0b68E1B46E9bF8b3A810feB5c0138f2f7e` (6 decimals)  
+**Platform Fee**: 2.5% (configurable by owner)
+
+**Badge Tier Thresholds (USDC)**:
+- Supporter: $0+
+- Fan: $500+
+- VIP: $2,000+
+- Champion: $5,000+
+- Legend: $10,000+
+- Diamond: $25,000+
+
+## 🎨 Demo Features
+
+- **19 mock creators** with diverse categories (Art, Music, Dev, Gaming, Photography, etc.)
+- **Demo payment system** for testing without real transactions
+- **Referral system** with unique codes and earnings tracking
+- **Badge progression** visualization
+- **Responsive design** for all devices
+
+## 📋 Submission for Base Batches Builder Track
+
+**Project Name**: BaseTip Spark  
+**Track**: Base Batches Builder Track – Submission Category
+
+**Why this solves a real problem**:
+- Creators currently rely on centralized platforms with opaque fees
+- BaseTip Spark offers low‐fee on‐chain tipping, transparent badges, and direct creator support
+- Built on Base, with open-source design ready for airdrop readiness
+- **Referral system** encourages community growth and viral adoption
+
+## 📝 Next Steps & Roadmap
+
+- [ ] Add `getAllCreators()` in contract for bulk reads
+- [ ] Integrate real card payment flow (Coinbase Commerce)
+- [ ] Real badge SVGs & metadata storage (IPFS)
+- [ ] Tiered analytics dashboard for creators
+- [ ] Mobile PWA and dark mode
+- [ ] Multi-chain support (Ethereum mainnet, Polygon)
+- [ ] Creator verification system
+- [ ] Social features (comments, reactions)
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: Vite + React + TypeScript + Tailwind CSS
-- **UI Components**: shadcn/ui + Radix UI
-- **Web3**: wagmi + viem + OnchainKit
-- **Routing**: React Router DOM
-- **Animations**: Framer Motion
-- **State Management**: React Query + localStorage
+- **Frontend**: Vite + React + TypeScript
+- **Styling**: Tailwind CSS + Framer Motion
+- **Blockchain**: wagmi + viem
+- **Database**: IndexedDB (client-side caching)
+- **Deployment**: GitHub Pages
+- **Icons**: Lucide React
+- **UI Components**: shadcn/ui
 
-## 🚀 Quick Start
+## 🙏 Acknowledgements
 
-### Prerequisites
-
-- Node.js 18+ 
-- npm or yarn
-- Web3 wallet (MetaMask, Coinbase Wallet, etc.)
-
-### Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/your-username/base-tip-spark.git
-cd base-tip-spark
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Start development server:
-```bash
-npm run dev
-```
-
-4. Open [http://localhost:8080](http://localhost:8080) in your browser
-
-### Building for Production
-
-```bash
-npm run build
-```
-
-The build output will be in the `dist/` directory, ready for deployment to GitHub Pages.
-
-## 🔧 Configuration
-
-### Environment Variables
-
-Create a `.env.local` file in the root directory:
-
-```env
-VITE_ONCHAINKIT_API_KEY=your_onchainkit_api_key
-VITE_CHAIN_ID=84532
-VITE_CONTRACT_ADDRESS=0x602306cE966CB42FA39f6463cb401e8aF1080eBD
-VITE_USDC_ADDRESS=0x036cbd0b68e1b46e9bf8b3a810feb5c0138f2f7e
-```
-
-### Network Configuration
-
-The app is configured for Base Sepolia testnet. To switch to mainnet:
-
-1. Update `APP_CHAIN_ID` in `src/lib/config.ts` to `8453`
-2. Update contract addresses to mainnet versions
-3. Update RPC endpoints
-
-## 📱 Usage
-
-### For Creators
-
-1. **Connect Wallet**: Connect your Web3 wallet to Base Sepolia
-2. **Create Page**: Fill out your profile information
-3. **Customize**: Set suggested tip amounts and social links
-4. **Publish**: Your page is live at `/creator/your-slug`
-5. **Receive Tips**: Tips go directly to your wallet
-
-### For Supporters
-
-1. **Browse Creators**: Visit the leaderboard or featured creators
-2. **Connect Wallet**: Ensure you're on Base Sepolia network
-3. **Send Tips**: Choose amount and add optional message
-4. **Approve USDC**: First-time users need to approve USDC spending
-5. **Confirm Transaction**: Tips are sent on-chain
-
-## 🏗️ Architecture
-
-### Smart Contracts
-
-- **BaseTip.sol**: Main contract handling tip distribution and creator registration
-- **ERC20 USDC**: Standard USDC token for payments
-
-### Frontend Structure
-
-```
-src/
-├── components/          # Reusable UI components
-├── pages/              # Route components
-├── lib/                # Utilities and configuration
-│   ├── config.ts       # App configuration
-│   ├── abi.ts          # Contract ABIs
-│   ├── wagmi.ts        # Web3 configuration
-│   ├── creators-store.ts # Local storage management
-│   └── types.ts        # TypeScript types
-└── hooks/              # Custom React hooks
-```
-
-## 🔒 Security
-
-- All transactions are on-chain and verifiable
-- USDC approval is required before sending tips
-- Network validation prevents wrong network transactions
-- Input validation and error handling throughout
-
-## 🚀 Deployment
-
-### GitHub Pages
-
-1. Build the project: `npm run build`
-2. Push to GitHub repository
-3. Enable GitHub Pages in repository settings
-4. Set source to `gh-pages` branch or `main` branch `/docs` folder
-
-The build script automatically copies `index.html` to `404.html` for SPA routing support.
-
-### Other Platforms
-
-The app can be deployed to any static hosting platform:
-- Vercel
-- Netlify
-- AWS S3 + CloudFront
-- IPFS
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Commit changes: `git commit -m 'Add amazing feature'`
-4. Push to branch: `git push origin feature/amazing-feature`
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- [Base](https://base.org/) for the L2 infrastructure
-- [Coinbase](https://coinbase.com/) for OnchainKit
-- [shadcn/ui](https://ui.shadcn.com/) for the component library
-- [wagmi](https://wagmi.sh/) for Web3 React hooks
-
-## 📞 Support
-
-- GitHub Issues: [Create an issue](https://github.com/your-username/base-tip-spark/issues)
-- Discord: [Join our community](https://discord.gg/your-discord)
-- Twitter: [@BaseTipSpark](https://twitter.com/BaseTipSpark)
-
----
-
-Built with ❤️ for the Base ecosystem
+Built by [@vizzzix](https://github.com/vizzzix) — made for the Base ecosystem hackathon.  
+Licensed under MIT.
