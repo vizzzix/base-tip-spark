@@ -11,6 +11,7 @@ import { useCreatorEvents } from '@/hooks/useCreatorEvents';
 import { useRealTimeUpdates } from '@/hooks/useRealTimeUpdates';
 import { creatorsStore } from '@/lib/creators-store';
 import { DonorBadge } from '@/components/DonorBadge';
+import { clearCreatorsCache } from '@/lib/db';
 import { motion } from 'framer-motion';
 import { useState, useEffect, useMemo } from 'react';
 
@@ -122,7 +123,6 @@ const Leaderboard = () => {
   const handleClearCache = async () => {
     try {
       // Clear IndexedDB cache
-      const { clearCreatorsCache } = await import('@/lib/db');
       await clearCreatorsCache();
       console.log('Cache cleared successfully');
       // Refresh the page to reload data

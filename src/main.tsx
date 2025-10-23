@@ -48,7 +48,7 @@ assertElement("SafeOnchainKitProvider", SafeOnchainKitProvider);
 
     createRoot(document.getElementById("root")!).render(
       <BrowserRouter 
-        basename="/base-tip-spark/"
+        basename={import.meta.env.PROD ? "/base-tip-spark/" : "/"}
         future={{
           v7_startTransition: true,
           v7_relativeSplatPath: true,
