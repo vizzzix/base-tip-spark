@@ -100,16 +100,24 @@ npm run deploy       # deploy to GitHub Pages
 - **Badge progression** visualization
 - **Responsive design** for all devices
 
-## 📋 Submission for Base Batches Builder Track
+## 📋 Submission for Base Batches 002: Builder Track
 
 **Project Name**: BaseTip Spark  
-**Track**: Base Batches Builder Track – Submission Category
+**Track**: [Base Batches 002: Builder Track](https://base-batches-builder-track.devfolio.co/overview)  
+**Submission Deadline**: October 24, 2025
 
 **Why this solves a real problem**:
 - Creators currently rely on centralized platforms with opaque fees
 - BaseTip Spark offers low‐fee on‐chain tipping, transparent badges, and direct creator support
 - Built on Base, with open-source design ready for airdrop readiness
 - **Referral system** encourages community growth and viral adoption
+
+**Base Batches Requirements Met**:
+- ✅ Functioning onchain app at publicly accessible URL
+- ✅ Open-source GitHub repository
+- ✅ Built on Base Sepolia with real transactions
+- ✅ Integrates OnchainKit for wallet connections
+- ✅ Video demonstration (coming soon)
 
 ## 📝 Next Steps & Roadmap
 
