@@ -69,7 +69,12 @@ const Index = () => {
     }
   });
   
-  const creators = useMemo(() => allCreatorsCombined, [allCreatorsCombined]);
+  // Remove duplicates by slug
+  const uniqueCreators = allCreatorsCombined.filter((creator, index, self) => 
+    index === self.findIndex(c => c.slug === creator.slug)
+  );
+  
+  const creators = useMemo(() => uniqueCreators, [uniqueCreators]);
   const featuredCreators = useMemo(() => creators.slice(0, 6), [creators]);
   
   // Calculate stats from combined data

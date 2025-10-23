@@ -90,6 +90,7 @@ export function useCreatorEvents() {
             const cached = await getCachedCreators();
             if (cached.length > 0) {
               console.log(`Loaded ${cached.length} creators from cache as fallback`);
+              console.log('Cached creators:', cached.map(c => ({ name: c.name, slug: c.slug, isDemo: c.slug?.startsWith('demo-') })));
               return cached.map(creator => ({
                 address: creator.wallet,
                 name: creator.name,

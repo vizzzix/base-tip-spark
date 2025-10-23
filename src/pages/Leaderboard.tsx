@@ -76,18 +76,32 @@ const Leaderboard = () => {
     }
   });
   
-  console.log('Final creators count:', allCreatorsCombined.length);
+  // Remove duplicates by slug
+  const uniqueCreators = allCreatorsCombined.filter((creator, index, self) => 
+    index === self.findIndex(c => c.slug === creator.slug)
+  );
   
-  const creators = useMemo(() => allCreatorsCombined, [allCreatorsCombined]);
+  console.log('Final creators count (before deduplication):', allCreatorsCombined.length);
+  console.log('Final creators count (after deduplication):', uniqueCreators.length);
+  
+  // Use unique creators
+  const creators = useMemo(() => uniqueCreators, [uniqueCreators]);
   const [filteredCreators, setFilteredCreators] = useState(creators);
   
   // Debug logging
   console.log('=== Leaderboard Debug ===');
-  console.log('Blockchain creators:', blockchainCreators.length);
+  console.log('Raw blockchain creators (creatorEvents):', creatorEvents?.length || 0);
+  console.log('Raw blockchain creators (allCreators):', allCreators?.length || 0);
+  console.log('Selected blockchain creators:', blockchainCreators.length);
   console.log('Demo creators from store:', demoCreators.length);
   console.log('Demo creators formatted (limited to 20):', demoCreatorsFormatted.slice(0, 20).length);
   console.log('Total creators after merge:', creators.length);
-  console.log('First 5 creators:', creators.slice(0, 5).map(c => ({ name: c.name, slug: c.slug, isDemo: c.slug?.startsWith('demo-') })));
+  console.log('First 10 creators:', creators.slice(0, 10).map(c => ({ 
+    name: c.name, 
+    slug: c.slug, 
+    isDemo: c.slug?.startsWith('demo-'),
+    address: c.address || c.payoutAddress
+  })));
   console.log('========================');
   const debugMode = window.location.search.includes("debug=true");
 
