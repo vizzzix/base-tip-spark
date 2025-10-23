@@ -69,9 +69,12 @@ const Index = () => {
     }
   });
   
-  // Remove duplicates by slug
+  // Remove duplicates by slug and address
   const uniqueCreators = allCreatorsCombined.filter((creator, index, self) => 
-    index === self.findIndex(c => c.slug === creator.slug)
+    index === self.findIndex(c => 
+      c.slug === creator.slug || 
+      (c.address && creator.address && c.address === creator.address)
+    )
   );
   
   const creators = useMemo(() => uniqueCreators, [uniqueCreators]);

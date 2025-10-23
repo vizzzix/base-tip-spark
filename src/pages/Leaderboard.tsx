@@ -77,13 +77,18 @@ const Leaderboard = () => {
     }
   });
   
-  // Remove duplicates by slug
+  // Remove duplicates by slug and address
   const uniqueCreators = allCreatorsCombined.filter((creator, index, self) => 
-    index === self.findIndex(c => c.slug === creator.slug)
+    index === self.findIndex(c => 
+      c.slug === creator.slug || 
+      (c.address && creator.address && c.address === creator.address)
+    )
   );
   
   console.log('Final creators count (before deduplication):', allCreatorsCombined.length);
   console.log('Final creators count (after deduplication):', uniqueCreators.length);
+  console.log('Alice Chen duplicates:', allCreatorsCombined.filter(c => c.name === 'Alice Chen').length);
+  console.log('All creators names:', allCreatorsCombined.map(c => c.name));
   
   // Use unique creators
   const creators = useMemo(() => uniqueCreators, [uniqueCreators]);
