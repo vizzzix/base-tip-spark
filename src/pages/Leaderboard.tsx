@@ -57,8 +57,8 @@ const Leaderboard = () => {
   // Merge blockchain and demo creators, prioritizing blockchain data
   const allCreatorsCombined = [...blockchainCreators];
   
-  // Add demo creators that are not already in blockchain
-  demoCreatorsFormatted.forEach(demoCreator => {
+  // Add demo creators that are not already in blockchain (limit to 20)
+  demoCreatorsFormatted.slice(0, 20).forEach(demoCreator => {
     const existsInBlockchain = blockchainCreators.some(bc => 
       bc.slug === demoCreator.slug || 
       bc.address === demoCreator.address ||
