@@ -37,7 +37,9 @@ const Index = () => {
   console.log('==========================');
   
   // Use creator events if available, otherwise fall back to allCreators
-  const blockchainCreators = creatorEvents && creatorEvents.length > 0 ? creatorEvents : allCreators || [];
+  // Limit blockchain creators to prevent too many from being loaded
+  const rawBlockchainCreators = creatorEvents && creatorEvents.length > 0 ? creatorEvents : allCreators || [];
+  const blockchainCreators = rawBlockchainCreators.slice(0, 50); // Limit to 50 blockchain creators
   
   // Combine blockchain creators with demo creators
   // Convert demo creators to match the expected format

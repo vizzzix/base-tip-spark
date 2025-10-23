@@ -39,7 +39,9 @@ const Leaderboard = () => {
   console.log('=======================================');
   
   // Use creator events if available, otherwise fall back to allCreators
-  const blockchainCreators = creatorEvents && creatorEvents.length > 0 ? creatorEvents : allCreators || [];
+  // Limit blockchain creators to prevent too many from being loaded
+  const rawBlockchainCreators = creatorEvents && creatorEvents.length > 0 ? creatorEvents : allCreators || [];
+  const blockchainCreators = rawBlockchainCreators.slice(0, 50); // Limit to 50 blockchain creators
   
   // Combine blockchain creators with demo creators
   // Convert demo creators to match the expected format
@@ -58,7 +60,10 @@ const Leaderboard = () => {
   const allCreatorsCombined = [...blockchainCreators];
   
   // Add demo creators that are not already in blockchain (limit to 20)
-  demoCreatorsFormatted.slice(0, 20).forEach(demoCreator => {
+  const limitedDemoCreators = demoCreatorsFormatted.slice(0, 20);
+  console.log('Limited demo creators count:', limitedDemoCreators.length);
+  
+  limitedDemoCreators.forEach(demoCreator => {
     const existsInBlockchain = blockchainCreators.some(bc => 
       bc.slug === demoCreator.slug || 
       bc.address === demoCreator.address ||
@@ -66,8 +71,12 @@ const Leaderboard = () => {
     );
     if (!existsInBlockchain) {
       allCreatorsCombined.push(demoCreator);
+    } else {
+      console.log('Demo creator already exists in blockchain:', demoCreator.name);
     }
   });
+  
+  console.log('Final creators count:', allCreatorsCombined.length);
   
   const creators = useMemo(() => allCreatorsCombined, [allCreatorsCombined]);
   const [filteredCreators, setFilteredCreators] = useState(creators);
@@ -75,12 +84,10 @@ const Leaderboard = () => {
   // Debug logging
   console.log('=== Leaderboard Debug ===');
   console.log('Blockchain creators:', blockchainCreators.length);
-  console.log('Demo creators:', demoCreatorsFormatted.length);
-  console.log('Total creators:', creators.length);
   console.log('Demo creators from store:', demoCreators.length);
-  console.log('First demo creator from store:', demoCreators[0]);
-  console.log('Demo creators formatted:', demoCreatorsFormatted[0]);
-  console.log('Creators:', creators.map(c => ({ name: c.name, slug: c.slug, hasAvatar: !!c.avatar, totalTipsUSD: c.totalTipsUSD })));
+  console.log('Demo creators formatted (limited to 20):', demoCreatorsFormatted.slice(0, 20).length);
+  console.log('Total creators after merge:', creators.length);
+  console.log('First 5 creators:', creators.slice(0, 5).map(c => ({ name: c.name, slug: c.slug, isDemo: c.slug?.startsWith('demo-') })));
   console.log('========================');
   const debugMode = window.location.search.includes("debug=true");
 
