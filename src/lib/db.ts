@@ -268,6 +268,19 @@ export async function cleanupStaleData(): Promise<void> {
     .delete();
 }
 
+// Clear all cached data
+export async function clearCreatorsCache(): Promise<void> {
+  try {
+    await db.creators.clear();
+    await db.slugMappings.clear();
+    await db.globalStats.clear();
+    console.log('All cached data cleared successfully');
+  } catch (error) {
+    console.error('Failed to clear cached data:', error);
+    throw error;
+  }
+}
+
 // Initialize database and cleanup on app start
 export async function initializeDB(): Promise<void> {
   try {

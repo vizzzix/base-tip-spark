@@ -96,6 +96,12 @@ const Leaderboard = () => {
   console.log('Demo creators from store:', demoCreators.length);
   console.log('Demo creators formatted (limited to 20):', demoCreatorsFormatted.slice(0, 20).length);
   console.log('Total creators after merge:', creators.length);
+  console.log('Blockchain creators details:', blockchainCreators.slice(0, 5).map(c => ({ 
+    name: c.name, 
+    slug: c.slug, 
+    isDemo: c.slug?.startsWith('demo-'),
+    address: c.address || c.payoutAddress
+  })));
   console.log('First 10 creators:', creators.slice(0, 10).map(c => ({ 
     name: c.name, 
     slug: c.slug, 
@@ -111,6 +117,19 @@ const Leaderboard = () => {
     refetchStats();
     // Reset force refresh after a short delay
     setTimeout(() => setForceRefresh(false), 1000);
+  };
+
+  const handleClearCache = async () => {
+    try {
+      // Clear IndexedDB cache
+      const { clearCreatorsCache } = await import('@/lib/db');
+      await clearCreatorsCache();
+      console.log('Cache cleared successfully');
+      // Refresh the page to reload data
+      window.location.reload();
+    } catch (error) {
+      console.error('Failed to clear cache:', error);
+    }
   };
 
   // Auto refresh every 60 seconds
@@ -197,18 +216,28 @@ const Leaderboard = () => {
                 Top creators on BaseTip
               </p>
             </div>
-            {debugMode && (
-              <Button
-                onClick={handleRefresh}
-                variant="outline"
-                size="sm"
-                disabled={creatorsLoading}
-                className="gap-2"
-              >
-                <RefreshCw className={`h-4 w-4 ${creatorsLoading ? 'animate-spin' : ''}`} />
-                Refresh
-              </Button>
-            )}
+              {debugMode && (
+                <div className="flex gap-2">
+                  <Button
+                    onClick={handleRefresh}
+                    variant="outline"
+                    size="sm"
+                    disabled={creatorsLoading}
+                    className="gap-2"
+                  >
+                    <RefreshCw className={`h-4 w-4 ${creatorsLoading ? 'animate-spin' : ''}`} />
+                    Refresh
+                  </Button>
+                  <Button
+                    onClick={handleClearCache}
+                    variant="outline"
+                    size="sm"
+                    className="gap-2"
+                  >
+                    Clear Cache
+                  </Button>
+                </div>
+              )}
           </div>
         </motion.div>
 
